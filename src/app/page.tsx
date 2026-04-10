@@ -264,17 +264,17 @@ export default function Home() {
           {/* Stats Banner */}
           <section className="stats-banner">
             <div className="stat-item">
-              <h3>2+</h3>
+              <h3>1+</h3>
               <p>Years of<br />Experience</p>
             </div>
             <div className="stat-divider"></div>
             <div className="stat-item">
-              <h3>10+</h3>
+              <h3>4+</h3>
               <p>Projects<br />Completed</p>
             </div>
             <div className="stat-divider"></div>
             <div className="stat-item">
-              <h3>15+</h3>
+              <h3>5</h3>
               <p>Technologies<br />Mastered</p>
             </div>
             <div className="stat-divider"></div>
