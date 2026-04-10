@@ -226,7 +226,7 @@ export default function Home() {
               <div className="avatar-container">
                 <div className="avatar-shape">
                   <Image
-                    src="/avatar.png"
+                    src="/terminal_profile.png"
                     alt="Sudarshan Shrivastava"
                     width={500}
                     height={600}
