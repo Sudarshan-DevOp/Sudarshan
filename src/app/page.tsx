@@ -184,6 +184,14 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [isMobileMenuOpen]);
+
   return (
     <div ref={containerRef}>
       <Suspense fallback={null}>
@@ -207,9 +215,13 @@ export default function Home() {
             <a href="#education" className={activeTab === "education" ? "active" : ""} onClick={() => setIsMobileMenuOpen(false)}>Education</a>
             <a href="#projects" className={activeTab === "projects" ? "active" : ""} onClick={() => setIsMobileMenuOpen(false)}>Projects</a>
             <a href="#contact" className={activeTab === "contact" ? "active" : ""} onClick={() => setIsMobileMenuOpen(false)}>Contact</a>
+            
+            {/* Mobile Only CV button */}
+            <a href="/CV" className="btn primary-btn mobile-cv-btn" style={{ marginTop: '1rem', display: 'none' }}>
+              Download CV <i className="fas fa-download"></i>
+            </a>
           </nav>
           <div className="nav-actions">
-
             <a href="/CV" className="btn primary-btn">
               Download CV <i className="fas fa-download"></i>
             </a>
