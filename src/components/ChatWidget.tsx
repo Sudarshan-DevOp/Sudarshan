@@ -25,21 +25,33 @@ const ChatWidget = () => {
     setMessages(prev => [...prev, { role: 'user', text: userMessage }]);
     setIsLoading(true);
 
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 4000);
+
     try {
       const apiUrl = process.env.NEXT_PUBLIC_CHAT_API_URL || '';
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: userMessage }),
+        signal: controller.signal
       });
 
       if (!response.ok) throw new Error('Failed to connect');
 
       const data = await response.json();
       setMessages(prev => [...prev, { role: 'ai', text: data.response }]);
-    } catch (error) {
-      setMessages(prev => [...prev, { role: 'ai', text: "Sorry, I'm having trouble connecting to the brain. Please try again later." }]);
+    } catch (error: any) {
+      if (error.name === 'AbortError') {
+        setMessages(prev => [...prev, { 
+          role: 'ai', 
+          text: "My backend brain is currently waking up! 😴 This usually takes about 50 seconds. Please try again in a minute." 
+        }]);
+      } else {
+        setMessages(prev => [...prev, { role: 'ai', text: "Sorry, I'm having trouble connecting to the brain. Please try again later." }]);
+      }
     } finally {
+      clearTimeout(timeoutId);
       setIsLoading(false);
     }
   };
